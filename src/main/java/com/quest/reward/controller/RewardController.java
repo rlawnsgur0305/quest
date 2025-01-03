@@ -40,15 +40,23 @@ public class RewardController {
 	public void downloadReward(@RequestParam(value = "startDate" , defaultValue = "2024-01-01") LocalDate startDate , 
 			   @RequestParam(value = "endDate" , defaultValue = "2024-12-31") LocalDate endDate , 
 			   HttpServletResponse response)throws IOException {
-		
-		List<RewardResponseDTO> result = rewardServiceImpl.getReward(startDate, endDate);
-		
-		//응답 설정
-		response.setContentType("text/csv");
-		response.setHeader("Content-Disposition", "attachment; filename=\"cashback_reward_data.csv\"");
-		
-		//파일 작성
-		PrintWriter writer = response.getWriter();
-		CSVUtil.writeRewardDataCsv(writer, result);
+		try {
+			List<RewardResponseDTO> result = rewardServiceImpl.getReward(startDate, endDate);
+			if (result == null || result.isEmpty()) {
+				throw new IOException("보상 내역이 없습니다 csv 파일을 생성하지 않습니다.");
+			}
+			//응답 설정
+			response.setContentType("text/csv");
+			response.setHeader("Content-Disposition", "attachment; filename=\"cashback_reward_data.csv\"");
+			
+			//파일 작성
+			PrintWriter writer = response.getWriter();
+			CSVUtil.writeRewardDataCsv(writer, result);
+			
+		} catch (IOException e) {
+			
+			response.setStatus(HttpServletResponse.SC_NO_CONTENT);
+			
+		}
 	}
 }
