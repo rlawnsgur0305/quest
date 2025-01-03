@@ -1,7 +1,7 @@
 package com.quest.reward.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.OutputStreamWriter;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -43,14 +43,13 @@ public class RewardController {
 			HttpServletResponse response) throws IOException {
 
 		List<RewardResponseDTO> result = rewardServiceImpl.getReward(startDate, endDate);
-	
-		// 응답 설정
-		response.setContentType("text/csv");
+
+		// MS949 인코딩 및 Content-Type 설정
+		response.setContentType("application/octet-stream; charset=MS949");
 		response.setHeader("Content-Disposition", "attachment; filename=\"cashback_reward_data.csv\"");
 
-		// 파일 작성
-		PrintWriter writer = response.getWriter();
-		CSVUtil.writeRewardDataCsv(writer, result);
-
+		try (OutputStreamWriter writer = new OutputStreamWriter(response.getOutputStream(), "MS949")) {
+			CSVUtil.writeRewardDataCsv(writer, result);
+		}
 	}
 }
