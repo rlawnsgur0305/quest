@@ -16,6 +16,12 @@ public class CSVUtil {
 		String[] header = { "team_id" , "total_amount" , "reward"};
 		csvWriter.writeNext(header);
 		
+		if (data == null || data.isEmpty()) {
+			csvWriter.close();
+			throw new IOException("보상 내역이 없습니다 csv 파일을 생성하지 않습니다.");
+		}
+		
+		
 		// 내부 데이터 (row 생성)
 		for (RewardResponseDTO reward : data) {
 			String[] row = {
