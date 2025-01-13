@@ -34,8 +34,10 @@ public class UserServiceImpl implements UserService {
 					// 팀 리스트 중 가장 최근 팀 찾기
 					TeamUserEntity team = teams.get(0);
 
-					results.add(new UserResponseDTO(team.getHubName(), team.getTeamId(), team.getStatus(),
-							team.getCrtDate()));
+					if (team.getStatus().equals("OK")) {
+						results.add(new UserResponseDTO(team.getHubName(), team.getTeamId(), team.getStatus(),
+								team.getUpdDate()));
+					}
 				}
 			}
 		}

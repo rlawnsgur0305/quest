@@ -15,6 +15,6 @@ public class UserResponseDTO {
 	
 	private String status; // 팀 상태
 	
-	private LocalDate crtDate; // 팀 생성 날짜
+	private LocalDate updDate; // 팀 생성 날짜
 	
 }
