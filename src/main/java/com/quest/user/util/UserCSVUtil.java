@@ -23,7 +23,7 @@ public class UserCSVUtil {
 	    } else {
 	        for (UserResponseDTO user : data) {
 	            String[] row = { String.valueOf(user.getHubName()), String.valueOf(user.getTeamId()),
-	                    user.getStatus() , String.valueOf(user.getCrtDate()) };
+	                    user.getStatus() , String.valueOf(user.getUpdDate()) };
 	            csvWriter.writeNext(row);
 	        }
 	    }
