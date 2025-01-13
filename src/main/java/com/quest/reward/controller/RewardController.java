@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.quest.reward.dto.response.RewardResponseDTO;
 import com.quest.reward.service.RewardServiceImpl;
-import com.quest.reward.util.CSVUtil;
+import com.quest.reward.util.RewardCSVUtil;
 
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.servlet.http.HttpServletResponse;
@@ -49,7 +49,7 @@ public class RewardController {
 		response.setHeader("Content-Disposition", "attachment; filename=\"cashback_reward_data.csv\"");
 
 		try (OutputStreamWriter writer = new OutputStreamWriter(response.getOutputStream(), "MS949")) {
-			CSVUtil.writeRewardDataCsv(writer, result);
+			RewardCSVUtil.writeRewardDataCsv(writer, result);
 		}
 	}
 }

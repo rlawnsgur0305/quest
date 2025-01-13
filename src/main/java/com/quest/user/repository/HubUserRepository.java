@@ -10,6 +10,6 @@ import com.quest.user.entity.HubUserEntity;
 @Repository
 public interface HubUserRepository extends JpaRepository<HubUserEntity, Long> {
 	
-	List<HubUserEntity> findByHubId(String hubId);
+	HubUserEntity findByHubId(String hubId);
 	
 }
