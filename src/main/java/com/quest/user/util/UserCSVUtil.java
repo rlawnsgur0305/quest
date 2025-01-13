@@ -13,7 +13,7 @@ public class UserCSVUtil {
 	    CSVWriter csvWriter = new CSVWriter(writer);
 
 	    // Header (컬럼 생성)
-	    String[] header = { "hub_name", "team_id" , "status", "crt_date" };
+	    String[] header = { "hub_name", "team_id" , "status", "upd_date" };
 	    csvWriter.writeNext(header);
 
 	    // 데이터 작성
