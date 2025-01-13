@@ -7,7 +7,7 @@ import java.util.List;
 import com.opencsv.CSVWriter;
 import com.quest.reward.dto.response.RewardResponseDTO;
 
-public class CSVUtil {
+public class RewardCSVUtil {
 
 	public static void writeRewardDataCsv(OutputStreamWriter writer, List<RewardResponseDTO> data) throws IOException {
 	    CSVWriter csvWriter = new CSVWriter(writer);
