@@ -37,7 +37,7 @@ public class UserServiceImpl implements UserService {
 				if (team != null) {
 					// 해당 정보를 ResponseDTO로 새로 생성하고 결과 리스트에 담음.
 					results.add(new UserResponseDTO(team.getHubName(), team.getTeamId(), team.getStatus(),
-							team.getUpdDate()));
+							team.getCrtDate()));
 				}
 			}
 		}

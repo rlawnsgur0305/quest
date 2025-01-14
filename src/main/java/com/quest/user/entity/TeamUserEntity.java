@@ -1,6 +1,6 @@
 package com.quest.user.entity;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -32,10 +32,10 @@ public class TeamUserEntity {
 	private String status; // 팀의 현재 상태 DEL == 삭제된 팀 , OK == 생성되어 있는 팀
 	
 	@Column (name = "crt_date")
-	private LocalDate crtDate;
+	private LocalDateTime crtDate;
 	
 	@Column (name = "upd_date")
-	private LocalDate updDate;
+	private LocalDateTime updDate;
 	
 	@ManyToOne
 	@JoinColumn(name = "hub_name" , referencedColumnName = "hub_id")

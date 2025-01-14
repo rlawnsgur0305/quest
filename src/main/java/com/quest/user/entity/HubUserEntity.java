@@ -28,13 +28,13 @@ public class HubUserEntity {
 	private String hubId;	// 2024_team 테이블에서 hub_name 으로 사용
 	
 	@Column (name = "transit_date")
-	private LocalDate transitDate;
+	private LocalDateTime transitDate;
 	
 	@Column (name = "crt_date")
-	private LocalDate crtDate;	// 하이브 계정의 생성 날짜
+	private LocalDateTime crtDate;	// 하이브 계정의 생성 날짜
 	
 	@Column (name = "upd_date")
-	private LocalDate updDate;	// 하이브 계정 수정 날짜
+	private LocalDateTime updDate;	// 하이브 계정 수정 날짜
 	
 	@OneToMany(mappedBy = "hubUser", fetch = FetchType.EAGER)
 	private List<TeamUserEntity> teams;
