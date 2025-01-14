@@ -13,7 +13,7 @@ public class RewardCSVUtil {
 	    CSVWriter csvWriter = new CSVWriter(writer);
 
 	    // Header (컬럼 생성)
-	    String[] header = { "team_id", "total_amount", "reward" };
+	    String[] header = { "team_id", "total_amount", "status" , "reward" };
 	    csvWriter.writeNext(header);
 
 	    // 데이터 작성
@@ -22,7 +22,7 @@ public class RewardCSVUtil {
 	        csvWriter.writeNext(row);
 	    } else {
 	        for (RewardResponseDTO reward : data) {
-	            String[] row = { String.valueOf(reward.getTeamId()), String.valueOf(reward.getTotalAmount()),
+	            String[] row = { String.valueOf(reward.getTeamId()), String.valueOf(reward.getTotalAmount()), reward.getUserStatus(),
 	                    reward.getReward() };
 	            csvWriter.writeNext(row);
 	        }

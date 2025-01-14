@@ -7,7 +7,5 @@ import com.quest.reward.entity.UserEntity;
 
 @Repository
 public interface UserRepository extends JpaRepository<UserEntity, String> {
-	
-	
-	
+	UserEntity findByTeamId(Long teamId); 
 }

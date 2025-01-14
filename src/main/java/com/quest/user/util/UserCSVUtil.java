@@ -4,31 +4,46 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.util.List;
 
-import com.opencsv.CSVWriter;
 import com.quest.user.dto.response.UserResponseDTO;
 
 public class UserCSVUtil {
 
-	public static void writeTeamDataCsv(OutputStreamWriter writer, List<UserResponseDTO> data) throws IOException {
-	    CSVWriter csvWriter = new CSVWriter(writer);
+    public static void writeTeamDataCsv(OutputStreamWriter writer, List<UserResponseDTO> data) throws IOException {
+        // 최대 너비를 설정 (정렬된 테이블 모양을 위해)
+        final int COL_WIDTH = 12; // 각 컬럼의 고정 너비 (원하는 너비로 조정 가능)
+        
+        // 헤더 생성
+        String header = formatRow(new String[] { "hub_name", "team_id", "status", "upd_date" }, COL_WIDTH);
+        writer.write("+------------+------------+------------+---------------------+\n");
+        writer.write(header);
+        writer.write("+------------+------------+------------+---------------------+\n");
 
-	    // Header (컬럼 생성)
-	    String[] header = { "hub_name", "team_id" , "status", "upd_date" };
-	    csvWriter.writeNext(header);
+        // 데이터 작성
+        if (data == null || data.isEmpty()) {
+            String emptyRow = formatRow(new String[] { "No Data", "", "", "" }, COL_WIDTH);
+            writer.write(emptyRow);
+        } else {
+            for (UserResponseDTO user : data) {
+                String[] row = {
+                        user.getHubName(),
+                        String.valueOf(user.getTeamId()),
+                        user.getStatus(),
+                        String.valueOf(user.getUpdDate())
+                };
+                writer.write(formatRow(row, COL_WIDTH));
+            }
+        }
+        writer.write("+------------+------------+------------+---------------------+\n");
+        writer.flush(); // 반드시 데이터를 작성 후 flush
+    }
 
-	    // 데이터 작성
-	    if (data == null || data.isEmpty()) {
-	        String[] row = { "요청하신 hub계정에 연결된 team이 존재하지 않습니다.","","",""};
-	        csvWriter.writeNext(row);
-	    } else {
-	        for (UserResponseDTO user : data) {
-	            String[] row = { String.valueOf(user.getHubName()), String.valueOf(user.getTeamId()),
-	                    user.getStatus() , String.valueOf(user.getUpdDate()) };
-	            csvWriter.writeNext(row);
-	        }
-	    }
-
-	    csvWriter.close();
-	}
-
+    private static String formatRow(String[] columns, int colWidth) {
+        StringBuilder rowBuilder = new StringBuilder("|");
+        for (String col : columns) {
+            if (col == null) col = ""; // null 값을 빈 문자열로 처리
+            rowBuilder.append(String.format(" %-"+colWidth+"s|", col)); // 고정 너비로 정렬
+        }
+        rowBuilder.append("\n");
+        return rowBuilder.toString();
+    }
 }

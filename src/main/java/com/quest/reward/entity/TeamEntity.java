@@ -5,6 +5,8 @@ import java.time.LocalDate;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
@@ -35,6 +37,6 @@ public class TeamEntity {
 	@Column(name= "upd_date")
 	private LocalDate updDate; // 계정의 수정 시간이에요
 	
-	
-
+	@OneToOne(mappedBy = "team")
+	private UserEntity user;
 }

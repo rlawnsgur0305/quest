@@ -33,23 +33,20 @@ public class UserController {
     @GetMapping
     @Operation(summary = "패키지 결제 테스트 계정 확인", description = "입력한 hub_id에 연동되어 있는 team 정보를 확인하는 API")
     public ResponseEntity<List<UserResponseDTO>> getTeamInfoByHubIds(
-            @Parameter(description = "hub_id 1", required = true) @RequestParam(required = false) String hubId1,
-            @Parameter(description = "hub_id 2", required = false) @RequestParam(required = false) String hubId2,
-            @Parameter(description = "hub_id 3", required = false) @RequestParam(required = false) String hubId3,
-            @Parameter(description = "hub_id 4", required = false) @RequestParam(required = false) String hubId4,
-            @Parameter(description = "hub_id 5", required = false) @RequestParam(required = false) String hubId5) {
+            @Parameter(description = "hub_id 리스트", required = true, example = "cu2qa151,cu2qa152")
+            @RequestParam List<String> hubIds) {
 
-        // 입력값 필터링 및 리스트로 변환
-        List<String> hubIds = Stream.of(hubId1, hubId2, hubId3, hubId4, hubId5)
-                                    .filter(Objects::nonNull)
-                                    .filter(hubId -> !hubId.isBlank())
-                                    .collect(Collectors.toList());
+        // 입력값 필터링
+        List<String> filteredHubIds = hubIds.stream()
+                                            .filter(Objects::nonNull)
+                                            .filter(hubId -> !hubId.isBlank())
+                                            .collect(Collectors.toList());
 
-        if (hubIds.isEmpty()) {
+        if (filteredHubIds.isEmpty()) {
             return ResponseEntity.badRequest().body(Collections.emptyList());
         }
 
-        List<UserResponseDTO> results = userService.getTeamInfoByHubId(hubIds);
+        List<UserResponseDTO> results = userService.getTeamInfoByHubId(filteredHubIds);
         return ResponseEntity.ok(results);
     }
     
