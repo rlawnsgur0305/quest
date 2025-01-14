@@ -1,6 +1,6 @@
 package com.quest.user.dto.response;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,6 +15,6 @@ public class UserResponseDTO {
 	
 	private String status; // 팀 상태
 	
-	private LocalDate updDate; // 팀 생성 날짜
+	private LocalDateTime crtDate; // 팀 생성 날짜
 	
 }

@@ -2,6 +2,7 @@ package com.quest.user.util;
 
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import com.quest.user.dto.response.UserResponseDTO;
@@ -11,9 +12,9 @@ public class UserCSVUtil {
     public static void writeTeamDataCsv(OutputStreamWriter writer, List<UserResponseDTO> data) throws IOException {
         // 최대 너비를 설정 (정렬된 테이블 모양을 위해)
         final int COL_WIDTH = 11; // 각 컬럼의 고정 너비 (원하는 너비로 조정 가능)
-        
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         // 헤더 생성
-        String header = formatRow(new String[] { "hub_name", "team_id", "status", "upd_date" }, COL_WIDTH);
+        String header = formatRow(new String[] { "hub_name", "team_id", "status", "crt_date" }, COL_WIDTH);
         writer.write("+------------+------------+------------+------------+\n");
         writer.write(header);
         writer.write("+------------+------------+------------+------------+\n");
@@ -28,7 +29,7 @@ public class UserCSVUtil {
                         user.getHubName(),
                         String.valueOf(user.getTeamId()),
                         user.getStatus(),
-                        String.valueOf(user.getUpdDate())
+                        user.getCrtDate() != null ? user.getCrtDate().format(dateFormatter) : ""
                 };
                 writer.write(formatRow(row, COL_WIDTH));
             }
