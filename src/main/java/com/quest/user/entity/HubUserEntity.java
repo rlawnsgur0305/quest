@@ -5,6 +5,7 @@ import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -34,7 +35,7 @@ public class HubUserEntity {
 	@Column (name = "upd_date")
 	private LocalDate updDate;	// 하이브 계정 수정 날짜
 	
-	@OneToMany(mappedBy = "hubUser")
+	@OneToMany(mappedBy = "hubUser", fetch = FetchType.EAGER)
 	private List<TeamUserEntity> teams;
 
 }
