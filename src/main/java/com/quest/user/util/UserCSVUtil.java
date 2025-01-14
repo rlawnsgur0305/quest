@@ -14,9 +14,9 @@ public class UserCSVUtil {
         
         // 헤더 생성
         String header = formatRow(new String[] { "hub_name", "team_id", "status", "upd_date" }, COL_WIDTH);
-        writer.write("+------------+------------+------------+--------------+\n");
+        writer.write("+------------+------------+------------+------------+\n");
         writer.write(header);
-        writer.write("+------------+------------+------------+--------------+\n");
+        writer.write("+------------+------------+------------+------------+\n");
 
         // 데이터 작성
         if (data == null || data.isEmpty()) {
@@ -33,7 +33,7 @@ public class UserCSVUtil {
                 writer.write(formatRow(row, COL_WIDTH));
             }
         }
-        writer.write("+------------+------------+------------+--------------+\n");
+        writer.write("+------------+------------+------------+------------+\n");
         writer.flush(); // 반드시 데이터를 작성 후 flush
     }
 
