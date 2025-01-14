@@ -9,6 +9,7 @@ public class RewardResponseDTO {
 	
 	private Long totalAmount;		// 팀의 총 결제 금액
 
+	private String UserStatus; // 하이브 계정 상태
+	
 	private String reward;		// 보상
-
 }

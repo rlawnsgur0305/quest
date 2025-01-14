@@ -5,6 +5,8 @@ import java.time.LocalDate;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,9 +18,10 @@ import lombok.Setter;
 public class UserEntity {
 	
 	@Id
+	@Column(name = "user_id")
 	private String userId; // 유저 아이디에요
 	
-	@Column(name= "team_id")
+	@Column(name= "team_id" , insertable = false, updatable = false)
 	private Long teamId; // 팀 아이디에요
 	
 	@Column(name= "status")
@@ -30,6 +33,7 @@ public class UserEntity {
 	@Column(name= "upd_date")
 	private LocalDate updDate; // 계정의 수정 시간이에요
 	
-	
-
+	@OneToOne
+	@JoinColumn(name="team_id" , referencedColumnName = "team_id")
+	private TeamEntity team;
 }

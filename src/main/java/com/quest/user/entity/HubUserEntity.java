@@ -1,6 +1,7 @@
 package com.quest.user.entity;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import jakarta.persistence.Column;
