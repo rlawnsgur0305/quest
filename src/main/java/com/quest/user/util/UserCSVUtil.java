@@ -11,15 +11,15 @@ public class UserCSVUtil {
 
     public static void writeTeamDataCsv(OutputStreamWriter writer, List<UserResponseDTO> data) throws IOException {
         // 최대 너비를 설정 (정렬된 테이블 모양을 위해)
-        final int COL_WIDTH = 18; // 각 컬럼의 고정 너비 (원하는 너비로 조정 가능)
+        final int COL_WIDTH = 19; // 각 컬럼의 고정 너비 (원하는 너비로 조정 가능)
         
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         
         // 헤더 생성
         String header = formatRow(new String[] { "hub_name", "team_id", "status", "crt_date" }, COL_WIDTH);
-        writer.write("+-------------------+-------------------+-------------------+--------------------+\n");
+        writer.write("+--------------------+--------------------+--------------------+---------------------+\n");
         writer.write(header);
-        writer.write("+-------------------+-------------------+-------------------+--------------------+\n");
+        writer.write("+--------------------+--------------------+--------------------+---------------------+\n");
 
         // 데이터 작성
         if (data == null || data.isEmpty()) {
@@ -36,7 +36,7 @@ public class UserCSVUtil {
                 writer.write(formatRow(row, COL_WIDTH));
             }
         }
-        writer.write("+-------------------+-------------------+-------------------+--------------------+\n");
+        writer.write("+--------------------+--------------------+--------------------+---------------------+\n");
         writer.flush(); // 반드시 데이터를 작성 후 flush
     }
 
