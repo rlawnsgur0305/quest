@@ -13,7 +13,7 @@ public class UserCSVUtil {
         // 최대 너비를 설정 (정렬된 테이블 모양을 위해)
         final int COL_WIDTH = 17; // 각 컬럼의 고정 너비 (원하는 너비로 조정 가능)
         
-        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         
         // 헤더 생성
         String header = formatRow(new String[] { "hub_name", "team_id", "status", "crt_date" }, COL_WIDTH);
