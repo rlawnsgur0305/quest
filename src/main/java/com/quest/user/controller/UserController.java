@@ -2,8 +2,12 @@ package com.quest.user.controller;
 
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -67,14 +71,20 @@ public class UserController {
                                     .collect(Collectors.toList());
 
         List<UserResponseDTO> results = userService.getTeamInfoByHubId(hubIds);
-        
-        	// MS949 인코딩 및 Content-Type 설정
-     		response.setContentType("application/octet-stream; charset=MS949");
-     		response.setHeader("Content-Disposition", "attachment; filename=\"team_data.csv\"");
-        
-        try (OutputStreamWriter writer = new OutputStreamWriter(response.getOutputStream() , "MS949")) {
-        	UserCSVUtil.writeTeamDataCsv(writer, results);
+
+        // 대한민국 현재 시간 가져오기
+        ZoneId seoulZoneId = ZoneId.of("Asia/Seoul");
+        LocalDateTime now = LocalDateTime.now(seoulZoneId);
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("EEE, dd MMM yyyy HH:mm:ss z", Locale.ENGLISH);
+        String formattedDate = now.format(dateFormatter.withZone(seoulZoneId));
+
+        // MS949 인코딩 및 Content-Type 설정
+        response.setContentType("application/octet-stream; charset=MS949");
+        response.setHeader("Content-Disposition", "attachment; filename=\"team_data.csv\"");
+        response.setHeader("Date", formattedDate); // 대한민국 시간으로 Date 헤더 설정
+
+        try (OutputStreamWriter writer = new OutputStreamWriter(response.getOutputStream(), "MS949")) {
+            UserCSVUtil.writeTeamDataCsv(writer, results);
         }
-        
     }
 }
